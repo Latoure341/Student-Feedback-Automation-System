@@ -9,7 +9,7 @@ export const FormContainer = styled.div`
   align-items: center;
 `;
 
-export const FormStyle = styled.form`
+export const FormStyle = styled.div`
   width: 30%;
   display: flex;
   flex-direction: column;
@@ -24,6 +24,9 @@ export const FormStyle = styled.form`
     font-weight: 600;
     cursor: pointer;
   }
+    h3:hover {
+        color: rgb(100, 100, 100);
+    }
 `;
 
 export const FormWrapper = styled.form`
@@ -50,6 +53,7 @@ export const FormWrapper = styled.form`
     color: white;
     font-size: 0.7rem;
     font-weight: 700;
+    cursor: pointer; 
   }
   label {
     font-size: 0.8rem;
