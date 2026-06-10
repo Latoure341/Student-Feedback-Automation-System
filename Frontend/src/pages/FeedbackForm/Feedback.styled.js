@@ -24,9 +24,20 @@ export const FormStyle = styled.div`
     font-weight: 600;
     cursor: pointer;
   }
-    h3:hover {
-        color: rgb(100, 100, 100);
+  h3:hover {
+    color: rgb(100, 100, 100);
+  }
+
+  ${(props) => props.theme.mobile} {
+    width: 18rem;
+    h3 {
+      font-size: 1.2rem;
     }
+  }
+  ${(props) => props.theme.Tablet} {
+    width: 25rem;
+  }
+  
 `;
 
 export const FormWrapper = styled.form`
@@ -53,7 +64,7 @@ export const FormWrapper = styled.form`
     color: white;
     font-size: 0.7rem;
     font-weight: 700;
-    cursor: pointer; 
+    cursor: pointer;
   }
   label {
     font-size: 0.8rem;
