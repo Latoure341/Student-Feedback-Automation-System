@@ -1,22 +1,26 @@
-import React, { useState } from 'react'
-import { useNavigate } from 'react-router-dom';
-import { FormContainer, FormWrapper,
-    FormStyle, InputStyle,
-    TextareaStyle } from './Feedback.styled.js';
+import React, { useState } from "react";
+import { useNavigate } from "react-router-dom";
+import {
+  FormContainer,
+  FormWrapper,
+  FormStyle,
+  InputStyle,
+  TextareaStyle,
+} from "./Feedback.styled.js";
 
 const initialState = {
-  fullName: '',
-  email: '',
-  courseName: '',
-  rating: '',
-  message: '',
+  fullName: "",
+  email: "",
+  courseName: "",
+  rating: "",
+  message: "",
 };
 
 const FeedbackForm = () => {
   const navigate = useNavigate();
   const [formData, setFormData] = useState(initialState);
   const [errors, setErrors] = useState({});
-  const [submitStatus, setSubmitStatus] = useState('');
+  const [submitStatus, setSubmitStatus] = useState("");
 
   const validate = () => {
     const validationErrors = {};
@@ -24,27 +28,28 @@ const FeedbackForm = () => {
     const rating = Number(formData.rating);
 
     if (!formData.fullName.trim()) {
-      validationErrors.fullName = 'Full name is required.';
+      validationErrors.fullName = "Full name is required.";
     }
 
     if (!formData.email.trim()) {
-      validationErrors.email = 'Email is required.';
+      validationErrors.email = "Email is required.";
     } else if (!emailPattern.test(formData.email)) {
-      validationErrors.email = 'Please enter a valid email address.';
+      validationErrors.email = "Please enter a valid email address.";
     }
 
     if (!formData.courseName.trim()) {
-      validationErrors.courseName = 'Course name is required.';
+      validationErrors.courseName = "Course name is required.";
     }
 
     if (!formData.rating) {
-      validationErrors.rating = 'Rating is required.';
+      validationErrors.rating = "Rating is required.";
     } else if (!Number.isInteger(rating) || rating < 1 || rating > 5) {
-      validationErrors.rating = 'Rating must be a whole number between 1 and 5.';
+      validationErrors.rating =
+        "Rating must be a whole number between 1 and 5.";
     }
 
     if (!formData.message.trim()) {
-      validationErrors.message = 'Feedback message is required.';
+      validationErrors.message = "Feedback message is required.";
     }
 
     setErrors(validationErrors);
@@ -61,7 +66,7 @@ const FeedbackForm = () => {
 
   const handleSubmit = async (event) => {
     event.preventDefault();
-    setSubmitStatus('');
+    setSubmitStatus("");
 
     if (!validate()) {
       return;
@@ -77,33 +82,36 @@ const FeedbackForm = () => {
     };
 
     try {
-        const production ='https://eric08.app.n8n.cloud/webhook/7b487c34-0ab9-4555-a7c3-45e3875dc8a1';
-        const test = 'https://eric08.app.n8n.cloud/webhook-test/7b487c34-0ab9-4555-a7c3-45e3875dc8a1'
+      const production =
+        "https://tukaofficial.app.n8n.cloud/webhook/7b487c34-0ab9-4555-a7c3-45e3875dc8a1";
+      const test =
+        "https://tukaofficial.app.n8n.cloud/webhook-test/7b487c34-0ab9-4555-a7c3-45e3875dc8a1";
+
       const response = await fetch(`${test}`, {
-        method: 'POST',
+        method: "POST",
         headers: {
-          'Content-Type': 'application/json',
+          "Content-Type": "application/json",
         },
         body: JSON.stringify(preparedPayload),
       });
 
       if (!response.ok) {
-        throw new Error('Failed to submit feedback');
+        throw new Error("Failed to submit feedback");
       }
 
-      setSubmitStatus('Feedback submitted successfully.');
+      setSubmitStatus("Feedback submitted successfully.");
       setFormData(initialState);
       setErrors({});
     } catch (error) {
-      setSubmitStatus('Unable to submit feedback. Please try again later.');
-      console.error('Feedback submit error:', error);
+      setSubmitStatus("Unable to submit feedback. Please try again later.");
+      console.error("Feedback submit error:", error);
     }
   };
 
   return (
     <FormContainer>
       <FormStyle>
-        <h3 onClick={() => navigate('/')}>Student Feedback</h3>
+        <h3 onClick={() => navigate("/")}>Student Feedback</h3>
         <FormWrapper as="form" onSubmit={handleSubmit} noValidate>
           <span>
             <label htmlFor="fullName">Full Names</label>
