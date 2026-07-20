@@ -82,12 +82,13 @@ const FeedbackForm = () => {
     };
 
     try {
-      const production =
-        "https://tukaofficial.app.n8n.cloud/webhook/7b487c34-0ab9-4555-a7c3-45e3875dc8a1";
-      const test =
-        "https://tukaofficial.app.n8n.cloud/webhook-test/7b487c34-0ab9-4555-a7c3-45e3875dc8a1";
+      const webhookUrl = import.meta.env.VITE_N8N_WEBHOOK_TEST_URL;
+         
+      if (!webhookUrl) {
+        throw new Error("Webhook URL is not configured.");
+      }
 
-      const response = await fetch(`${test}`, {
+      const response = await fetch(webhookUrl, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",

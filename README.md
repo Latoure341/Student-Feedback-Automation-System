@@ -1,45 +1,36 @@
-# Feedback App with n8n Automation
+# Student Feedback Automation System
 
-This project is a React + Vite frontend for collecting user feedback and forwarding it to an n8n workflow.
+This project uses a React + Vite frontend to collect student feedback and send it to an n8n webhook workflow.
 
-## What it does
+## Setup
 
-- Displays a feedback form to the user
-- Submits form data to an n8n webhook
-- Uses n8n automation to process the feedback
-- Sends an email to the user after feedback is successfully submitted
+1. Open the frontend folder:
+   ```bash
+   cd Frontend
+   ```
+2. Copy the example environment file and update the webhook URLs:
+   ```bash
+   cp .env-example .env
+   ```
+3. Install dependencies and start the app:
+   ```bash
+   npm install
+   npm run dev
+   ```
 
-## n8n automation
+## Environment variables
 
-The feedback flow is extended with n8n automation, which performs these steps:
+Create the frontend environment file at [Frontend/.env](Frontend/.env) with the following values:
 
-1. Receives feedback via a webhook from the frontend
-2. Optionally edits or enriches the incoming fields
-3. Appends the feedback row to a spreadsheet
-4. Sends a confirmation email to the user once the feedback is stored
-
-## Frontend location
-
-The React frontend is located in `Frontend/`.
-
-## Run locally
-
-From the `Frontend/` folder:
-
-```bash
-npm install
-npm run dev
+```env
+VITE_N8N_WEBHOOK_URL=https://your-production-webhook-url
+VITE_N8N_WEBHOOK_TEST_URL=https://your-test-webhook-url
 ```
 
-## Workflow screenshot
-
-Below is the workflow diagram for the n8n automation:
-
-![n8n workflow](./n8n-workflow.png)
-
-> To display the workflow screenshot here, place the actual image file as `n8n-workflow.png` at the root of the project.
+The form uses the production URL in production mode and the test URL otherwise.
 
 ## Notes
 
-- The frontend connects to your n8n webhook endpoint to trigger the automation.
-- This README documents the feedback-to-email automation powered by n8n.
+- The frontend submits feedback to the configured n8n webhook endpoint.
+- Vite only exposes variables that start with the VITE_ prefix to the frontend code.
+- Restart the development server after changing the environment variables.
