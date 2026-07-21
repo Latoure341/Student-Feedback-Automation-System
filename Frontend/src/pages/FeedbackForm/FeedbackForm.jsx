@@ -82,13 +82,13 @@ const FeedbackForm = () => {
     };
 
     try {
-      const webhookUrl = import.meta.env.VITE_N8N_WEBHOOK_TEST_URL;
-         
+      const webhookUrl = import.meta.env.VITE_N8N_WEBHOOK_URL;
+
       if (!webhookUrl) {
         throw new Error("Webhook URL is not configured.");
       }
 
-      const response = await fetch(webhookUrl, {
+      await fetch(webhookUrl, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -96,15 +96,11 @@ const FeedbackForm = () => {
         body: JSON.stringify(preparedPayload),
       });
 
-      if (!response.ok) {
-        throw new Error("Failed to submit feedback");
-      }
-
       setSubmitStatus("Feedback submitted successfully.");
       setFormData(initialState);
       setErrors({});
     } catch (error) {
-      setSubmitStatus("Unable to submit feedback. Please try again later.");
+      setSubmitStatus("Encounter Browse error while submitting feedback. Please wait 2 minutes for a possible successful submission.");
       console.error("Feedback submit error:", error);
     }
   };
